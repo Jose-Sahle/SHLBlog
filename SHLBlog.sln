@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHLBlog.Server", "SHLBlog\SHLBlog.Server\SHLBlog.Server.csproj", "{1AB68DA3-4323-4D19-A390-D8241CE91213}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "shlblog.client", "SHLBlog\shlblog.client\shlblog.client.esproj", "{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AB68DA3-4323-4D19-A390-D8241CE91213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB68DA3-4323-4D19-A390-D8241CE91213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB68DA3-4323-4D19-A390-D8241CE91213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB68DA3-4323-4D19-A390-D8241CE91213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3EE074D-66FB-4886-BDD0-EB48BC8617B1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C2A87B2-14AF-47E5-AC7F-22C977585DE9}
+	EndGlobalSection
+EndGlobal
