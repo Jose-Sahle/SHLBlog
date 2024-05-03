@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SHLBlog.Server.Data;
-using Microsoft.Owin.Cors;
-using Microsoft.AspNetCore.Builder;
 using System.Net.WebSockets;
 using SHLBlog.Server.Services;
 
@@ -13,18 +11,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularDevOrigin",
-        policy =>
-        {
-            policy.WithOrigins("https://localhost:4200"
-                    ) // Permite especificamente este origin
-                  .AllowAnyHeader() // Permite qualquer cabeçalho
-                  .AllowAnyMethod() // Permite qualquer método
-                  .AllowCredentials();                  
-        });
-});
 
 var databasename = builder.Configuration["ConexaoSqlite:SqliteConnectionString"];
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(databasename));
@@ -42,8 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("AllowAngularDevOrigin");
 
 app.UseAuthorization();
 

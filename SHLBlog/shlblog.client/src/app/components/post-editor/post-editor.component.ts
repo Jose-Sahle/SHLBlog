@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../../services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-editor',
@@ -11,11 +12,11 @@ export class PostEditorComponent implements OnInit
 {
   postForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private postService: PostService)
+  constructor(private fb: FormBuilder, private postService: PostService, private router: Router)
   {
     this.postForm = this.fb.group({
-      title: ['', Validators.required],
-      content: ['', Validators.required]
+      Title: ['', Validators.required],
+      Content: ['', Validators.required]
     });
   }
 
@@ -28,7 +29,11 @@ export class PostEditorComponent implements OnInit
     if (this.postForm.valid)
     {
       this.postService.criar(this.postForm.value).subscribe({
-        next: (result) => console.log('Post criado com sucesso', result),
+        next: (result) =>
+        {
+          console.log('Post criado com sucesso', result);
+          this.router.navigate(['/']);
+        },
         error: (error) => console.error('Falha ao criar post', error)
       });
     }

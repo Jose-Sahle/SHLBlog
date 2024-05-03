@@ -22,11 +22,13 @@ namespace SHLBlog.Server.Controllers
 
         // GET: api/post
         [HttpGet("listar")]
-        public async Task<ActionResult<IEnumerable<Post>>> Listar()
+        public IEnumerable<Post> Listar()
         {
-            return await _context.Posts
-                .Include(p => p.Username)  // Inclui o usuário para acesso ao nome do usuário se necessário
-                .ToListAsync();
+            IEnumerable<Post> posts = _context.Posts
+                .Include(p => p.Username)  // Inclui    o usuário para acesso ao nome do usuário se necessário
+                ;
+
+            return posts;
         }
 
         // POST: api/post
@@ -36,13 +38,23 @@ namespace SHLBlog.Server.Controllers
             if (post == null)
                 return BadRequest("Dados inválidos");
 
-            post.CreatedAt = DateTime.UtcNow; // Definir a data de criação para agora
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
+            try
+            {
+                post.PostId = 0;
+                post.UserId = 1;
+                post.CreatedAt = DateTime.UtcNow; // Definir a data de criação para agora
+                _context.Posts.Add(post);
+                await _context.SaveChangesAsync();
 
-            await WebSocketService.NotifyClients("Novo post criado!");
+                await WebSocketService.NotifyClients("Novo post criado!");
 
-            return CreatedAtAction(nameof(Criar), new { id = post.PostId }, post);
+                return CreatedAtAction(nameof(Criar), new { id = post.PostId }, post);
+            }
+            catch (Exception ex)
+            {
+                String msg = ex.Message;
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

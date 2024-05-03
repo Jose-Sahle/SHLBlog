@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SHLBlog.Server.Data;
 using SHLBlog.Server.Models;
@@ -42,26 +41,26 @@ namespace SHLBlog.Server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(String pUsername, String pPassword)
+        public async Task<ActionResult<bool>> Register(String Username, String Password)
         {
             // Verifica se o usuário já existe
-            if (await _context.Users.AnyAsync(u => u.Username == pUsername))
+            if (await _context.Users.AnyAsync(u => u.Username == Username))
             {
-                return BadRequest("Usuário já existe.");
+                return false;
             }
 
             // Criar uma nova instância de usuário
             var user = new User
             {
-                Username = pUsername,
-                Password = pPassword // Aqui você deve adicionar hashing na senha real
+                Username = Username,
+                Password = Password // Aqui você deve adicionar hashing na senha real
             };
 
             // Adicionar o usuário ao contexto e salvar as mudanças
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok("Usuário registrado com sucesso.");
+            return true;
         }
 
         private bool VerifyPasswordHash(string password, string storedpassword)

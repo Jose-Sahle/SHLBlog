@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   login()
   {
@@ -21,6 +21,7 @@ export class LoginComponent
       next: (response) =>
       {
         console.log('Login bem-sucedido', response);
+        this.router.navigate(['/']);
       },
       error: (error) =>
       {

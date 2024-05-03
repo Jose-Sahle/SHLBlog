@@ -9,7 +9,7 @@ import { PostService } from '../services/post.service';
 })
 export class HomeComponent implements OnInit
 {
-  posts: Post[] = [];
+  posts?: Post[] = [];
 
   constructor(private postService: PostService) { }
 
@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit
 
   loadPosts()
   {
-    this.postService.listar().subscribe(posts =>
+    this.postService.listar().subscribe(result =>
     {
-      this.posts = posts;
+      this.posts = result;
     }, error =>
     {
       console.error('Error fetching posts:', error);

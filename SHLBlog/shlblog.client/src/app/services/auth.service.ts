@@ -1,14 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService
 {
-
-  private baseUrl = 'http://localhost:40080/api/Auth';
-  //private baseUrl = 'api/Auth';
+  private baseUrl = environment.baseUrl + "api/Auth";
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +19,7 @@ export class AuthService
       .set("Username", username)
       .set("Password", password);
 
-    var retorno = this.http.post<boolean>(urladdress, params);
+    var retorno = this.http.post<boolean>(urladdress, null, { params });
 
     return retorno;
   }
@@ -33,7 +32,7 @@ export class AuthService
       .set("Username", username)
       .set("Password", password);
 
-    var retorno = this.http.post<boolean>(urladdress, params);
+    var retorno = this.http.post<boolean>(urladdress, null, { params });
 
     return retorno;
   }

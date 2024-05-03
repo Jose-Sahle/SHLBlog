@@ -1,5 +1,8 @@
-﻿namespace SHLBlog.Server.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SHLBlog.Server.Models
 {
+    [Table("Users")]
     public class User
     {
         public int UserId { get; set; }

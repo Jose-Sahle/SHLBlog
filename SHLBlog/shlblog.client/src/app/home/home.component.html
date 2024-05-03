@@ -1,20 +1,25 @@
 <div>
   <h2>Posts</h2>
-  <table>
+  <p *ngIf="!posts">
+    <em>
+      Carregando... Por favor, atualize assim que o backend ASP.NET iniciar.
+    </em>
+  </p>
+  <table *ngIf="posts">
     <thead>
       <tr>
+        <th></th>
         <th>Title</th>
         <th>Content</th>
-        <th>Created At</th>
         <th>User ID</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let post of posts">
-        <td>{{ post.title }}</td>
-        <td>{{ post.content }}</td>
-        <td>{{ post.createdAt | date:'medium' }}</td>
-        <td>{{ post.userId }}</td>
+        <td>Mais um alinha</td>
+        <td>{{ post.Title }}</td>
+        <td>{{ post.Content }}</td>
+        <td>{{ post.UserId }}</td>
       </tr>
     </tbody>
   </table>
