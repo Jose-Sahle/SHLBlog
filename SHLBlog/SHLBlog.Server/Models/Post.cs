@@ -2,7 +2,6 @@
 
 namespace SHLBlog.Server.Models
 {
-    [Table("Posts")]
     public class Post
     {
         public int PostId { get; set; }
