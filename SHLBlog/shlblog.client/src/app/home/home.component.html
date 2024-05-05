@@ -5,7 +5,8 @@
       Carregando... Por favor, atualize assim que o backend ASP.NET iniciar.
     </em>
   </p>
-  <table *ngIf="posts">
+  <button *ngIf="count > 0" (click)="loadPosts()">Clique aqui para recarregar (* {{ count }} )</button>
+  <table *ngIf="posts" class="posts-table">
     <thead>
       <tr>
         <th>Título</th>

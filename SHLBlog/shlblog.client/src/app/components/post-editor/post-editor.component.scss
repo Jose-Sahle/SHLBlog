@@ -1,21 +1,33 @@
 .post-editor {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Adiciona sombra ao quadro externo
+  padding: 20px; // Espaço interno para não colar os elementos na borda
+  background-color: white; // Fundo branco para destacar o quadro
+  border-radius: 8px; // Bordas arredondadas para o quadro
+  margin-left: 50px;
+  margin-right: 50px;
+
   .form-group {
     margin-bottom: 1rem;
 
     label {
       display: block;
       margin-bottom: .5rem;
+      font-size: 1.2rem; // Aumenta o tamanho da fonte
+      font-weight: bold; // Deixa o texto em negrito
+      color: #333; // Cor escura para maior contraste
     }
 
     input, textarea {
       width: 100%;
-      padding: .8rem;
-      border: 1px solid #ccc;
+      padding: 0.8rem;
+      border: 2px solid blue;
       border-radius: 4px;
+      box-sizing: border-box; // Garante que o padding não aumente o tamanho dos inputs
     }
 
     textarea {
-      resize: vertical; // Permite que o usuário ajuste a altura do textarea
+      height: 200px; // Altura fixa para o textarea
+      resize: none; // Remove a capacidade de redimensionar
     }
   }
 

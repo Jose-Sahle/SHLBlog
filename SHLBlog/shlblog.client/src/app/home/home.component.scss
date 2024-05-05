@@ -1,0 +1,29 @@
+.posts-table {
+  width: calc(100% - 40px); // Calcula a largura total menos as margens laterais
+  margin: 20px; // Margem uniforme ao redor da tabela
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  th, td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee; // Linha separadora entre colunas
+  }
+
+  th:last-child, td:last-child {
+    border-right: none; // Remove a borda da última coluna
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  td {
+    white-space: pre-wrap;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}

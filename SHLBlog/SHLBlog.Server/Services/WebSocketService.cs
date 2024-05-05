@@ -7,18 +7,21 @@ namespace SHLBlog.Server.Services
     {
         private static List<WebSocket> clients = new List<WebSocket>();
 
-        public static async Task HandleWebSocketAsync(WebSocket webSocket)
+        public static async Task HandleWebSocketAsync(HttpContext context, WebSocket webSocket)
         {
             clients.Add(webSocket);
 
-            while (webSocket.State == WebSocketState.Open)
+            var buffer = new byte[1024 * 4];
+            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            while (!result.CloseStatus.HasValue)
             {
-                var token = CancellationToken.None;
-                var buffer = new ArraySegment<byte>(new byte[4096]);
-                var received = await webSocket.ReceiveAsync(buffer, token);
-
-                // Manter a conexão aberta.
+                // Aqui você poderia adicionar lógica para processar a mensagem recebida
+                // Por exemplo, echo de volta a mensagem recebida:
+                await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
+                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
+            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            clients.Remove(webSocket); // Remover da lista quando o cliente se desconecta
         }
 
         public static async Task NotifyClients(string message)

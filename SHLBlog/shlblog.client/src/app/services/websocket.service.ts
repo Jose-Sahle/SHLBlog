@@ -1,31 +1,56 @@
+// Arquivo: websocket.service.ts
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/internal/Subject';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService
 {
-  private socket!: WebSocket;
-  private listener: Subject<any> = new Subject<any>();
+  private socket?: WebSocket;
+  private messageSubject: Subject<string> = new Subject();
 
-  public connect(url: string): Subject<any>
+  constructor() { }
+
+  public connect(url: string): void
   {
-    if (!this.socket || this.socket.readyState === WebSocket.CLOSED)
+    this.socket = new WebSocket(url);
+
+    this.socket.onmessage = event =>
     {
-      this.socket = new WebSocket(url);
+      this.messageSubject.next(event.data);
+    };
 
-      this.socket.onmessage = (event) =>
-      {
-        this.listener.next(event.data);
-      };
+    this.socket.onopen = event =>
+    {
+      console.log('WebSocket connection established');
+    };
 
-      this.socket.onclose = (event) =>
-      {
-        console.log('Conexão WebSocket foi fechada', event);
-      };
-    }
+    this.socket.onerror = event =>
+    {
+      console.error('WebSocket error observed:', event);
+    };
 
-    return this.listener;
+    this.socket.onclose = event =>
+    {
+      console.log('WebSocket connection closed');
+    };
+  }
+
+  public getMessages(): Observable<string>
+  {
+    return this.messageSubject.asObservable();
+  }
+
+  public sendMessage(message: string): void
+  {
+    if (this.socket)
+      this.socket.send(message);
+  }
+
+  public disconnect(): void
+  {
+    if (this.socket)
+      this.socket.close();
   }
 }
